@@ -1,5 +1,8 @@
 package menu
 
+import menu.Controller.Run
+
 fun main() {
-    // TODO: 프로그램 구현
+    val run = Run()
+    run.run()
 }
