@@ -12,5 +12,7 @@ object Menus {
     val western = listOf("라자냐", "그라탱", "뇨끼", "끼슈",
         "프렌치 토스트", "바게트", "스파게티", "피자", "파니니")
 
+    val allMenu = jap + kor + chn + asian + western
     val category = listOf(jap, kor, chn, asian, western)
+    val categoryName = mapOf(0 to "일식", 1 to "한식", 2 to "중식", 3 to "아시안", 4 to "양식")
 }
