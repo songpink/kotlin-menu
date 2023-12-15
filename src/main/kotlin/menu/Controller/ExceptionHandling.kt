@@ -52,6 +52,5 @@ class ExceptionHandling {
             println("[ERROR] 코치 이름에 중복이 있습니다. 다시 입력해주세요.")
             true
         }
-
     }
 }
