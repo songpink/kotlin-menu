@@ -10,22 +10,41 @@ class Run {
     private val exceptionHandling = ExceptionHandling()
     fun run() {
         inputView.printInputCoachName()
+        val coachNames = coachNameErrHandling()
+        val cannotEatMenus: MutableList<List<String>> = mutableListOf()
+        cannotEatMenuErrHandling(coachNames, cannotEatMenus)
+        suggestionAndPrintChart(coachNames, cannotEatMenus)
+    }
+    private fun coachNameErrHandling(): List<String>{
         var coachNames: List<String> = inputView.inputCoachName()
-        while (exceptionHandling.numOfCoachesUnderTwoErr(coachNames)) {
+        while (exceptionHandling.sameCoachNameErr(coachNames)){
             coachNames = inputView.inputCoachName()
         }
-        val cannotEatMenus: MutableList<List<String>> = mutableListOf()
+        while (exceptionHandling.numOfCoachesNotValid(coachNames)) {
+            coachNames = inputView.inputCoachName()
+        }
+        while (exceptionHandling.coachNameLengthErr(coachNames)){
+            coachNames = inputView.inputCoachName()
+        }
+        return coachNames
+    }
+    private fun cannotEatMenuErrHandling(
+        coachNames: List<String>,
+        cannotEatMenus: MutableList<List<String>>
+    ) {
         for (c in coachNames) {
             var cannotEatMenusByCoach = inputView.inputCannotEatMenusByCoach(c)
-            while (exceptionHandling.cannotEatMenuErr(cannotEatMenusByCoach)) {
+            while (exceptionHandling.cannotEatMenuNotExistErr(cannotEatMenusByCoach)) {
+                cannotEatMenusByCoach = inputView.inputCannotEatMenusByCoach(c)
+            }
+            while (exceptionHandling.cannotEatMenuSizeErr(cannotEatMenusByCoach)){
                 cannotEatMenusByCoach = inputView.inputCannotEatMenusByCoach(c)
             }
             cannotEatMenus.add(cannotEatMenusByCoach)
         }
-        suggestionAndprintChart(coachNames, cannotEatMenus)
     }
 
-    private fun suggestionAndprintChart(
+    private fun suggestionAndPrintChart(
         coachNames: List<String>,
         cannotEatMenus: MutableList<List<String>>
     ) {
